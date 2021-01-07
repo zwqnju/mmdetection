@@ -37,8 +37,8 @@ classes = (
     "光圈瑕疵"
 )
 data = dict(
-    samples_per_gpu=3,
-    workers_per_gpu=3,
+    samples_per_gpu=2,
+    workers_per_gpu=2,
     train=dict(
         classes=classes,
         type=dataset_type,
