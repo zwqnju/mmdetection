@@ -19,7 +19,6 @@ model = dict(
     )
 )
 load_from = 'checkpoints/mask_rcnn_x101_64x4d_fpn_2x_coco_20200509_224208-39d6f70c.pth'
-work_dir = './0_try/107a'
 optimizer = dict(
     lr=0.02/8,
 )

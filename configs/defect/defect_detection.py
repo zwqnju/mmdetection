@@ -1,5 +1,5 @@
 dataset_type = 'CocoDataset'
-data_root = '/home/allride/workspace/2021/Detection/dataset/'
+data_root = '/media/samba/weiqiang/Datasets/dataset/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [
@@ -37,8 +37,8 @@ classes = (
     "光圈瑕疵"
 )
 data = dict(
-    samples_per_gpu=2,
-    workers_per_gpu=2,
+    samples_per_gpu=3,
+    workers_per_gpu=3,
     train=dict(
         classes=classes,
         type=dataset_type,
