@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
     model = init_detector(
         config_file, 
-        None, 
+        checkpoint_file, 
         device='cuda:0'
     )
 
