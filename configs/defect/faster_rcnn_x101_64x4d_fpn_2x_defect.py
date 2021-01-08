@@ -1,4 +1,4 @@
-_base_ = './faster_rcnn/faster_rcnn_x101_64x4d_fpn_2x_coco.py'
+_base_ = '../faster_rcnn/faster_rcnn_x101_64x4d_fpn_2x_coco.py'
 
 dataset_type = 'DefectDataset'
 classes = (
