@@ -29,10 +29,10 @@ if __name__ == '__main__':
 
     model = init_detector(
         config_file, 
-        checkpoint_file, 
+        None, 
         device='cuda:0'
     )
 
-    submit_result = generate_submit_list(model, model.cfg.data.test.img_prefix)
+    submit_result = generate_submit_list(model, './0_try/demo/')
     with open(submit_file, 'w') as f:
         json.dump(submit_result, f)
