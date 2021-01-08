@@ -3,14 +3,13 @@ import os
 import json
 import mmcv
 from mmcv import Config
-from mmdet.models import build_detector
-from mmdet.apis import inference_detector
+from mmdet.apis import init_detector, inference_detector
 from tqdm import tqdm
 
 def generate_submit_list(model, img_folder):
     submit_result = []
     for filename in tqdm(os.listdir(img_folder)):
-        img = mmcv.imread(os.path.join(img_folder, filename))
+        img = os.path.join(img_folder, filename)
         result = inference_detector(model, img)
         for cls_id, det_boxes in enumerate(result):
             for det_box in det_boxes:
@@ -25,21 +24,15 @@ def generate_submit_list(model, img_folder):
 if __name__ == '__main__':
 
     config_file = sys.argv[1]
-    model_file = sys.argv[2]
+    checkpoint_file = sys.argv[2]
     submit_file = sys.argv[3]
 
-    cfg = Config.fromfile(config_file)
-    cfg.load_from = model_file
-    cfg.gpu_ids = range(1)
-    print(f'Config:\n{cfg.pretty_text}')
-
-    model = build_detector(
-        cfg.model, 
-        train_cfg=cfg.train_cfg, 
-        test_cfg=cfg.test_cfg
+    model = init_detector(
+        config_file, 
+        checkpoint_file, 
+        device='cuda:0'
     )
-    model.cfg = cfg
 
-    submit_result = generate_submit_list(model, cfg.data.test.img_prefix)
+    submit_result = generate_submit_list(model, model.cfg.data.test.img_prefix)
     with open(submit_file, 'w') as f:
         json.dump(submit_result, f)
