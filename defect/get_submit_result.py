@@ -33,6 +33,6 @@ if __name__ == '__main__':
         device='cuda:0'
     )
 
-    submit_result = generate_submit_list(model, './0_try/demo/')
+    submit_result = generate_submit_list(model, model.cfg.data.test.img_prefix)
     with open(submit_file, 'w') as f:
         json.dump(submit_result, f)
