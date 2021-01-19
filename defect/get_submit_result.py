@@ -36,3 +36,5 @@ if __name__ == '__main__':
     submit_result = generate_submit_list(model, model.cfg.data.test.img_prefix)
     with open(submit_file, 'w') as f:
         json.dump(submit_result, f)
+
+# bash ./tools/dist_train.sh configs/defect/faster_rcnn_x101_64x4d_fpn_2x_defect.py 4 --work-dir try/1_s
