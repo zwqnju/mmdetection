@@ -4,28 +4,29 @@ _base_ = [
 
 dataset_type = 'DefectDataset'
 classes = (
-    "边异常", 
-    "角异常", 
-    "白色点瑕疵", 
-    "浅色块瑕疵", 
-    "深色点块瑕疵", 
-    "光圈瑕疵"
+    "Edge",     # "边异常", 
+    "Angle",    # "角异常", 
+    "White",    # "白色点瑕疵", 
+    "Light",    # "浅色块瑕疵", 
+    "Dark",     # "深色点块瑕疵", 
+    "Aperture", # "光圈瑕疵"
 )
 data_root = '/media/samba/weiqiang/Datasets/dataset/'
+train_root = data_root + 'crop_train_set/'
 data = dict(
     train=dict(
         type=dataset_type,
         classes=classes,
-        data_root=data_root + 'tile_round1_train_20201231/',
-        ann_file=data_root + 'tile_round1_train_20201231/train_annos.json',
-        img_prefix=data_root + 'tile_round1_train_20201231/train_imgs/',
+        data_root=train_root,
+        ann_file=train_root + 'train_annos.json',
+        img_prefix=train_root + 'crop_imgs/',
     ),
     val=dict(
         type=dataset_type,
         classes=classes,
-        data_root=data_root + 'tile_round1_train_20201231/',
-        ann_file=data_root + 'tile_round1_train_20201231/train_annos.json',
-        img_prefix=data_root + 'tile_round1_train_20201231/train_imgs/',
+        data_root=train_root,
+        ann_file=train_root + 'train_annos.json',
+        img_prefix=train_root + 'crop_imgs/',
     ),
     test=dict(
         type=dataset_type,
