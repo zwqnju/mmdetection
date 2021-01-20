@@ -46,6 +46,8 @@ test_pipeline = [
 data_root = '/media/samba/weiqiang/Datasets/dataset/'
 train_root = data_root + 'crop_train_set/'
 data = dict(
+    samples_per_gpu=2,
+    workers_per_gpu=2,
     train=dict(
         type=dataset_type,
         classes=classes,
@@ -155,5 +157,5 @@ evaluation = dict(
 )
 load_from = 'checkpoints/cascade_mask_rcnn_x101_32x4d_fpn_20e_coco_20200528_083917-ed1f4751.pth'
 
-
+total_epochs = 100
 
