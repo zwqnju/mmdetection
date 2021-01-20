@@ -35,7 +35,7 @@ def get_gt_boxes(img, cat):
 def get_edge_img(img_name):
     img_file = img_folder + img_name
     img = cv2.imread(img_file, cv2.IMREAD_GRAYSCALE)
-    img = cv2.Canny(img, 50, 100)
+    img = cv2.Canny(img, 80, 150)
     img = img.astype(np.bool)
     return img
 
@@ -66,6 +66,8 @@ def filter_outside(img_name, img):
 
 def get_cluster_boxes(img):
     points = np.vstack(np.where(img)).transpose()
+    if len(points) == 0:
+        return []
     cluster = DBSCAN(eps=5, min_samples=5).fit(points)
     ys = points[:, 0]
     xs = points[:, 1]
