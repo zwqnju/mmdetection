@@ -11,6 +11,35 @@ classes = (
     "Dark",     # "深色点块瑕疵", 
     "Aperture", # "光圈瑕疵"
 )
+
+
+train_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='LoadAnnotations', with_bbox=True),
+    dict(type='Resize', img_scale=(4096, 3500), keep_ratio=True),
+    dict(type='RandomFlip', flip_ratio=0.5),
+    # dict(type='Normalize', **img_norm_cfg),
+    dict(type='Pad', size_divisor=32),
+    dict(type='DefaultFormatBundle'),
+    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
+]
+test_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(
+        type='MultiScaleFlipAug',
+        img_scale=(4096, 3500),
+        flip=False,
+        transforms=[
+            dict(type='Resize', keep_ratio=True),
+            dict(type='RandomFlip'),
+            # dict(type='Normalize', **img_norm_cfg),
+            dict(type='Pad', size_divisor=32),
+            dict(type='ImageToTensor', keys=['img']),
+            dict(type='Collect', keys=['img']),
+        ])
+]
+
+
 data_root = '/media/samba/weiqiang/Datasets/dataset/'
 train_root = data_root + 'crop_train_set/'
 data = dict(
@@ -20,6 +49,7 @@ data = dict(
         data_root=train_root,
         ann_file=train_root + 'train_annos.json',
         img_prefix=train_root + 'crop_imgs/',
+        pipeline=train_pipeline,
     ),
     val=dict(
         type=dataset_type,
@@ -27,6 +57,7 @@ data = dict(
         data_root=train_root,
         ann_file=train_root + 'train_annos.json',
         img_prefix=train_root + 'crop_imgs/',
+        pipeline=test_pipeline,
     ),
     test=dict(
         type=dataset_type,
@@ -34,6 +65,7 @@ data = dict(
         data_root=data_root + 'tile_round1_testA_20201231/',
         ann_file=None,
         img_prefix=data_root + 'tile_round1_testA_20201231/testA_imgs/',
+        pipeline=test_pipeline,
     ),
 )
 
@@ -119,3 +151,9 @@ evaluation = dict(
     metric='mAP',
 )
 load_from = 'checkpoints/cascade_mask_rcnn_x101_32x4d_fpn_20e_coco_20200528_083917-ed1f4751.pth'
+
+
+
+
+# img_norm_cfg = dict(
+#     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
