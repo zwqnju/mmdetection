@@ -44,6 +44,7 @@ test_pipeline = [
 
 
 data_root = '/media/samba/weiqiang/Datasets/dataset/'
+# data_root = '/home/allride/workspace/2021/Detection/dataset/'
 train_root = data_root + 'crop_train_set/'
 data = dict(
     samples_per_gpu=1,
@@ -67,9 +68,9 @@ data = dict(
     test=dict(
         type=dataset_type,
         classes=classes,
-        data_root=data_root + 'tile_round1_testA_20201231/',
+        data_root=data_root + 'crop_testA_set/',
         ann_file=None,
-        img_prefix=data_root + 'tile_round1_testA_20201231/testA_imgs/',
+        img_prefix=data_root + 'crop_testA_set/split_imgs/',
         pipeline=test_pipeline,
     ),
 )
@@ -157,6 +158,7 @@ evaluation = dict(
     metric='mAP',
 )
 load_from = 'checkpoints/cascade_mask_rcnn_x101_32x4d_fpn_20e_coco_20200528_083917-ed1f4751.pth'
+resume_from = '/media/samba/weiqiang/7_split'
 
 total_epochs = 100
 

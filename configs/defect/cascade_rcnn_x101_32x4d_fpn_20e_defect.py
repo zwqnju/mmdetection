@@ -43,11 +43,12 @@ test_pipeline = [
 ]
 
 
-data_root = '/media/samba/weiqiang/Datasets/dataset/'
+# data_root = '/media/samba/weiqiang/Datasets/dataset/'
+data_root = '/home/allride/workspace/2021/Detection/dataset/'
 train_root = data_root + 'crop_train_set/'
 data = dict(
-    samples_per_gpu=1,
-    workers_per_gpu=1,
+    samples_per_gpu=8,
+    workers_per_gpu=8,
     train=dict(
         type=dataset_type,
         classes=classes,
@@ -67,9 +68,9 @@ data = dict(
     test=dict(
         type=dataset_type,
         classes=classes,
-        data_root=data_root + 'tile_round1_testA_20201231/',
+        data_root=data_root + 'crop_testA_set/',
         ann_file=None,
-        img_prefix=data_root + 'tile_round1_testA_20201231/testA_imgs/',
+        img_prefix=data_root + 'crop_testA_set/crop_imgs/',
         pipeline=test_pipeline,
     ),
 )
