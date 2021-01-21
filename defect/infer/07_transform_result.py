@@ -2,8 +2,8 @@ import numpy as np
 from tqdm import tqdm
 import json
 
-src_result_file = './0_try/0120_epoch6.json'
-dst_result_file = './0_try/0120_epoch6_initial.json'
+src_result_file = './0_try/0121_crop_nms0.1.json'
+dst_result_file = './0_try/0121_initial_nms0.1.json'
 crop_folder = '/home/allride/workspace/2021/Detection/dataset/crop_testA_set/crop_infos/'
 
 def read_crop_info(img_file):

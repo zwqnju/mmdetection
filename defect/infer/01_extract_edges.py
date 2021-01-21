@@ -1,7 +1,7 @@
 # Canny算子提取边缘
 # 得到地板砖边缘
 
-import warnings  
+import warnings
 warnings.filterwarnings('error')  
 import multiprocessing
 import os

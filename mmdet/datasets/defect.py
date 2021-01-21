@@ -15,17 +15,19 @@ class DefectDataset(CustomDataset):
 
     def load_annotations(self, json_file):
         with open(json_file, 'rb') as f:
-            origin_infos = json.load(f)
+            merged_infos = json.load(f)
+        
+        anno_infos = merged_infos['anno']
     
         info_dict = {}
         # convert annotations to middle format
-        for origin_info in origin_infos:
+        for origin_info in anno_infos:
             filename = origin_info['name']
             if filename not in info_dict:
                 info_dict[filename] = dict(
                     filename=origin_info['name'], 
-                    width=origin_info['image_height'], 
-                    height=origin_info['image_width'],
+                    height=origin_info['image_height'], 
+                    width=origin_info['image_width'],
                     ann=dict(
                         bboxes=[],
                         labels=[],
@@ -39,5 +41,18 @@ class DefectDataset(CustomDataset):
             info['ann']['bboxes'] = np.array(info['ann']['bboxes'], dtype=np.float32)
             info['ann']['labels'] = np.array(info['ann']['labels'], dtype=np.long)
             data_infos.append(info)
+        
+        img_infos = merged_infos['img']
+        for img_name, img_height, img_width in img_infos:
+            if img_name not in info_dict:
+                data_infos.append(dict(
+                    filename = img_name,
+                    height = img_height,
+                    width = img_width,
+                    anno = dict(
+                        bboxes = np.zeros([0, 4], dtype=np.float32),
+                        labels = np.zeros([0], dtype=np.long)
+                    )
+                ))
 
         return data_infos
