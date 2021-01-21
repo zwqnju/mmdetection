@@ -158,7 +158,7 @@ evaluation = dict(
     metric='mAP',
 )
 load_from = 'checkpoints/cascade_mask_rcnn_x101_32x4d_fpn_20e_coco_20200528_083917-ed1f4751.pth'
-resume_from = '/media/samba/weiqiang/7_split/epoch_44.pth'
+resume_from = '/media/samba/weiqiang/8_resume/epoch_45.pth'
 
 total_epochs = 100
 
